@@ -6,7 +6,7 @@
  * Determines whether or not browser is Firefox
  * @returns {Bool}
  */
-var isFireFox = function isFireFox() {
+var isFirefox = function isFirefox() {
   return navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 };
 
