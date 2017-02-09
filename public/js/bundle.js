@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // TODO: Turn into one big constructor
 
@@ -47,7 +47,7 @@ var isStartOfLine = function isStartOfLine(top, bottom, currentTop, currentBotto
   // Find overlap
   var overlap = currentBottom > bottom ? bottom - currentTop : currentBottom - currentTop;
   // If % overlap is less than half we are on a new line (lowest line-height allowed will be .5)
-  return overlap / (currentBottom - currentTop) < .5;
+  return overlap / (currentBottom - currentTop) < 0.5;
 };
 
 /**
@@ -55,10 +55,10 @@ var isStartOfLine = function isStartOfLine(top, bottom, currentTop, currentBotto
  * @returns {Array}
  */
 var getTextElems = function getTextElems(block) {
-  var inlineElems = block.getElementsByTagName("*");
+  var inlineElems = block.getElementsByTagName('*');
   var textElems = [];
   for (var i = 0, x = inlineElems.length; i < x; i++) {
-    if (inlineElems[i].getElementsByTagName("*").length < 1) {
+    if (inlineElems[i].getElementsByTagName('*').length < 1) {
       textElems.push(inlineElems[i]);
     }
   }
@@ -83,7 +83,7 @@ var getWrapIndex = function getWrapIndex(selectionIndex, elemIndex, charCount, s
   } else {
     // Chrome, Safari, IE: 
     // - Finds LAST char in line
-    if (!(selectionIndex === 0 && elemIndex === 0) && strLength - 1 >= charCount + i) {
+    if (!(selectionIndex === 0 && elemIndex === 0) && strLength - 1 >= charCount + selectionIndex) {
       // Skip first char in block, make sure wrapIndex exists
       return charCount + selectionIndex;
     }
@@ -137,7 +137,7 @@ var getWrapReturns = function getWrapReturns(block) {
       if (isStartOfLine(top, bottom, currentTop, currentBottom)) {
         var wrapIndex = getWrapIndex(i, elemIndex, charCount, strLength);
         // Add wrap index
-        if (wrapIndex !== undefined) wrapReturns.push(firstLineIndex);
+        if (wrapIndex !== undefined) wrapReturns.push(wrapIndex);
       }
 
       // Move range start over one
