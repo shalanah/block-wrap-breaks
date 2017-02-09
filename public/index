@@ -1,0 +1,75 @@
+'use strict';
+
+var _require = require('./getWrapReturns'),
+    getWrapReturns = _require.getWrapReturns;
+
+/**
+ * Get text spans hey!
+ */
+
+
+var getTextSpans = function getTextSpans(block) {
+  var textSpans = [];
+  var textSpanAttribute = 'data-text';
+  var spans = block.getElementsByTagName('span');
+  for (var i = 0, len = spans.length; i < len; i++) {
+    var span = spans[i];
+    if (span.getAttribute(textSpanAttribute)) {
+      textSpans.push(span);
+    }
+  }
+  return textSpans;
+};
+
+/**
+ * Display result
+ */
+var displayResult = function displayResult(paragraph, wrapReturns, resultElem) {
+  var frag = document.createDocumentFragment();
+  var text = paragraph.textContent;
+
+  // First line
+  var firstLine = document.createElement('p');
+  firstLine.innerHTML = text[0] !== ' ' ? text[0] : '-';
+  frag.appendChild(firstLine);
+
+  // Rest of the lines
+  for (var j = 0, x = wrapReturns.length; j < x; j++) {
+    var show = document.createElement('p');
+    var returnPos = wrapReturns[j];
+    show.innerHTML = text[returnPos] !== ' ' ? text[returnPos] : '-';
+    /* show.innerHTML = returnPos + ' (' + 
+    text[returnPos]  + ')  '+ (
+      j !== 0 ? text.slice(wrapReturns[j - 1], returnPos) : text.slice(0, returnPos)
+    )*/
+    frag.appendChild(show);
+  }
+  resultElem.appendChild(frag);
+};
+
+/**
+ * Loop through pairs
+ */
+var loopThroughPairs = function loopThroughPairs() {
+  // Loop through each test pair
+  var tests = document.getElementsByTagName('div');
+  for (var i = 0, x = tests.length; i < x; i++) {
+    var test = tests[i];
+
+    // Get wrap returns
+    var paragraph = test.getElementsByClassName('text')[0];
+    var textSpans = getTextSpans(paragraph);
+    var wrapReturns = getWrapReturns(textSpans, paragraph.textContent.length);
+
+    // Display wrap returns
+    var result = test.getElementsByClassName('result')[0];
+
+    displayResult(paragraph, wrapReturns, result);
+  }
+};
+
+// Let font load first then loop
+setTimeout(function () {
+  loopThroughPairs();
+}, 5000);
+

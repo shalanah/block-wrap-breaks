@@ -1,0 +1,33 @@
+body {
+  color: $textColorDefault;
+  font-family: Arial;
+  font-size: 20px;
+}
+h5 {
+  font-size: 10px;
+}
+
+.text {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.text, .result {
+  line-height: 20px;
+  font-size: 20px;
+}
+
+.result {
+  color: $textColorFirstChar; 
+}
+
+// To alter font size and color of every other
+span > span:nth-of-type(even) {
+  color: $textColorAlternate;
+  font-size: 10px;
+}
+
+// To alter font family
+span > span:nth-of-type(7n + 6) {
+  font-family: Impact, Charcoal, sans-serif;
+}

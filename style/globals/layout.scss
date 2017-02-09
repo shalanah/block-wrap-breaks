@@ -1,0 +1,22 @@
+body {
+  padding: 40px;
+}
+
+.text {
+  width: 75px;
+  margin-left: 20px;
+}
+
+.text, .result {
+  position: absolute;
+}
+
+.result {
+  width: 25px;
+}
+
+.example {
+  width: 100px;
+  float: left;
+  margin-right: 40px;
+}

@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Block wrap text</title>
+  <!--[if IE]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="public/css/app.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div class="example">
+    <div>
+      <h5>One span</h5>
+      <p class='text'><span><span data-text='true'>abcdefghijklmnopqrstuvwxyz HERE ab ab abcdefghijklmno And some more      ab cd ef gh ij kl mn op.              qrst uvw xyzabcdefghijklmnop qr, st, uv, wx, yz. Abc def Ghi, jkl, Mmo. Pqr: stu!</span></span>
+      </p>
+      <p class='result'></p>
+    </div>
+  </div>
+
+  <div class="example">
+    <div>
+      <h5>Span each char</h5>
+      <p class='text'><span><span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span><span>i</span><span>j</span><span>k</span><span>l</span><span>m</span><span>n</span><span>o</span><span>p</span><span>q</span><span>r</span><span>s</span><span>t</span><span>u</span><span>v</span><span>w</span><span>x</span><span>y</span><span>z</span><span> </span><span>H</span><span>E</span><span>R</span><span>E</span><span> </span><span>a</span><span>b</span><span> </span><span>a</span><span>b</span><span> </span><span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span><span>i</span><span>j</span><span>k</span><span>l</span><span>m</span><span>n</span><span>o</span><span> </span><span>A</span><span>n</span><span>d</span><span> </span><span>s</span><span>o</span><span>m</span><span>e</span><span> </span><span>m</span><span>o</span><span>r</span><span>e</span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span>a</span><span>b</span><span> </span><span>c</span><span>d</span><span> </span><span>e</span><span>f</span><span> </span><span>g</span><span>h</span><span> </span><span>i</span><span>j</span><span> </span><span>k</span><span>l</span><span> </span><span>m</span><span>n</span><span> </span><span>o</span><span>p</span><span>.</span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span>q</span><span>r</span><span>s</span><span>t</span><span> </span><span>u</span><span>v</span><span>w</span><span> </span><span>x</span><span>y</span><span>z</span><span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span><span>i</span><span>j</span><span>k</span><span>l</span><span>m</span><span>n</span><span>o</span><span>p</span><span> </span><span>q</span><span>r</span><span>,</span><span> </span><span>s</span><span>t</span><span>,</span><span> </span><span>u</span><span>v</span><span>,</span><span> </span><span>w</span><span>x</span><span>,</span><span> </span><span>y</span><span>z</span><span>.</span><span> </span><span>A</span><span>b</span><span>c</span><span> </span><span>d</span><span>e</span><span>f</span><span> </span><span>G</span><span>h</span><span>i</span><span>,</span><span> </span><span>j</span><span>k</span><span>l</span><span>,</span><span> </span><span>M</span><span>m</span><span>o</span><span>.</span><span> </span><span>P</span><span>q</span><span>r</span><span>:</span><span> </span><span>s</span><span>t</span><span>u</span><span>!</span></span>
+      </p>
+      <p class='result'></p>
+    </div>
+  </div>
+
+  <div class="example">
+    <div>
+      <h5>Span each 2 char</h5>
+      <p class='text'><span><span>ab</span><span>cd</span><span>ef</span><span>gh</span><span>ij</span><span>kl</span><span>mn</span><span>op</span><span>qr</span><span>st</span><span>uv</span><span>wx</span><span>yz</span><span> H</span><span>ER</span><span>E </span><span>ab</span><span> a</span><span>b </span><span>ab</span><span>cd</span><span>ef</span><span>gh</span><span>ij</span><span>kl</span><span>mn</span><span>o </span><span>An</span><span>d </span><span>so</span><span>me</span><span> m</span><span>or</span><span>e </span><span>  </span><span>  </span><span> a</span><span>b </span><span>cd</span><span> e</span><span>f </span><span>gh</span><span> i</span><span>j </span><span>kl</span><span> m</span><span>n </span><span>op</span><span>. </span><span>  </span><span>  </span><span>  </span><span>  </span><span>  </span><span>  </span><span> q</span><span>rs</span><span>t </span><span>uv</span><span>w </span><span>xy</span><span>za</span><span>bc</span><span>de</span><span>fg</span><span>hi</span><span>jk</span><span>lm</span><span>no</span><span>p </span><span>qr</span><span>, </span><span>st</span><span>, </span><span>uv</span><span>, </span><span>wx</span><span>, </span><span>yz</span><span>. </span><span>Ab</span><span>c </span><span>de</span><span>f </span><span>Gh</span><span>i,</span><span> j</span><span>kl</span><span>, </span><span>Mm</span><span>o.</span><span> P</span><span>qr</span><span>: </span><span>st</span><span>u!</span></span>
+      </p>
+      <p class='result'></p>
+    </div>
+  </div>
+
+  <div class="example">
+    <div>
+      <h5>Span each 3 char</h5>
+      <p class='text'><span><span>abc</span><span>def</span><span>ghi</span><span>jkl</span><span>mno</span><span>pqr</span><span>stu</span><span>vwx</span><span>yz </span><span>HER</span><span>E a</span><span>b a</span><span>b a</span><span>bcd</span><span>efg</span><span>hij</span><span>klm</span><span>no </span><span>And</span><span> so</span><span>me </span><span>mor</span><span>e  </span><span>   </span><span> ab</span><span> cd</span><span> ef</span><span> gh</span><span> ij</span><span> kl</span><span> mn</span><span> op</span><span>.  </span><span>   </span><span>   </span><span>   </span><span>   </span><span>qrs</span><span>t u</span><span>vw </span><span>xyz</span><span>abc</span><span>def</span><span>ghi</span><span>jkl</span><span>mno</span><span>p q</span><span>r, </span><span>st,</span><span> uv</span><span>, w</span><span>x, </span><span>yz.</span><span> Ab</span><span>c d</span><span>ef </span><span>Ghi</span><span>, j</span><span>kl,</span><span> Mm</span><span>o. </span><span>Pqr</span><span>: s</span><span>tu!</span></span>
+      </p>
+      <p class='result'></p>
+    </div>
+  </div>
+
+  <div class="example">
+    <div>
+      <h5>Span each 4 char</h5>
+      <p class='text'><span><span>abcd</span><span>efgh</span><span>ijkl</span><span>mnop</span><span>qrst</span><span>uvwx</span><span>yz H</span><span>ERE </span><span>ab a</span><span>b ab</span><span>cdef</span><span>ghij</span><span>klmn</span><span>o An</span><span>d so</span><span>me m</span><span>ore </span><span>    </span><span> ab </span><span>cd e</span><span>f gh</span><span> ij </span><span>kl m</span><span>n op</span><span>.   </span><span>    </span><span>    </span><span>   q</span><span>rst </span><span>uvw </span><span>xyza</span><span>bcde</span><span>fghi</span><span>jklm</span><span>nop </span><span>qr, </span><span>st, </span><span>uv, </span><span>wx, </span><span>yz. </span><span>Abc </span><span>def </span><span>Ghi,</span><span> jkl</span><span>, Mm</span><span>o. P</span><span>qr: </span><span>stu!</span></span>
+      </p>
+      <p class='result'></p>
+    </div>
+  </div>
+
+<!--
+  <div class="example">
+    <div>
+      <h5>Span around words/spaces</h5>
+      <p class='text'><span><span>abcdefghijklmnopqrstuvwxyz</span><span> </span><span>HERE</span><span> </span><span>ab</span><span> </span><span>ab</span><span> </span><span>abcdefghijklmno</span><span> </span><span>And</span><span> </span><span>some</span><span> </span><span>more</span><span>      </span><span>ab</span><span> </span><span>cd</span><span> </span><span>ef</span><span> </span><span>gh</span><span> </span><span>ij</span><span> </span><span>kl</span><span> </span><span>mn</span><span> </span><span>op.</span><span>              </span><span>qrst</span><span> </span><span>uvw</span><span> </span><span>xyzabcdefghijklmnop</span><span> </span><span>qr,</span><span> </span><span>st,</span><span> </span><span>uv,</span><span> </span><span>wx,</span><span> </span><span>yz.</span><span> </span><span>Abc</span><span> </span><span>def</span><span> </span><span>Ghi,</span><span> </span><span>jkl,</span><span> </span><span>Mmo.</span><span> </span><span>Pqr:</span><span> </span><span>stu!</span></span>
+      </p>
+      <p class='result'></p>
+    </div>
+  </div>
+-->
+
+  <script src="./public/js/bundle.js"></script>
+
+</body>
+
+</html>
