@@ -73,9 +73,11 @@ var getTextElems = function getTextElems(block) {
  */
 var getWrapIndex = function getWrapIndex(selectionIndex, elemIndex, charCount, strLength) {
   if (isFireFox()) {
+    // Skip collapsed selections (not needed)
+    if (selectionIndex === 0) return;
+
     // Firefox:
     // - Finds FIRST char in new line
-    // - selectionIndex === 0 is skipped since collapsed selections rects aren't defined by FF
     if (!(selectionIndex === 1 && elemIndex === 0)) {
       // Skip first char in block
       return charCount + selectionIndex - 1;
@@ -135,17 +137,16 @@ var getWrapReturns = function getWrapReturns(block) {
 
       // Detecting start of line
       if (isStartOfLine(top, bottom, currentTop, currentBottom)) {
+        // Add wrap index (only skips adding first char in paragraph)
         var wrapIndex = getWrapIndex(i, elemIndex, charCount, strLength);
-        // Add wrap index
         if (wrapIndex !== undefined) wrapReturns.push(wrapIndex);
-      }
 
+        // Set next top/bottom
+        top = currentTop;
+        bottom = currentBottom;
+      }
       // Move range start over one
       range.setStart(textNode, i);
-
-      // Set next top/bottom
-      top = currentTop;
-      bottom = currentBottom;
     }
     // Keep track of characters
     charCount += text.length;
