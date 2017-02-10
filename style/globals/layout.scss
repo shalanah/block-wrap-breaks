@@ -1,10 +1,38 @@
+$textWidth: 75px;
+$resultWidth: 50px;
+$gutter: 10px;
+$pad: 10px;
+$borderRadius: 5px;
+$examplesPerRow: 6;
+$exampleWidth: $textWidth + $resultWidth + $gutter + ($pad * 4);
+
 body {
-  padding: 40px;
+  padding: 80px 40px 40px;
+  background-color: #efefef;
+}
+
+main {
+  margin: 0 auto;
+  width: ($examplesPerRow * $exampleWidth) + ($examplesPerRow * $gutter);
+}
+
+.example {
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: $borderRadius;
+  padding: $pad * 2;
+  background-color: #fff;
+  width: $exampleWidth;
+  float: left;
+  margin: 0 ($gutter / 2);
+  height: 500px;
+  > div {
+    position: relative;
+  }
 }
 
 .text {
-  width: 75px;
-  margin-left: 20px;
+  width: $textWidth;
+  left: $resultWidth + $gutter;
 }
 
 .text, .result {
@@ -12,11 +40,6 @@ body {
 }
 
 .result {
-  width: 25px;
-}
-
-.example {
-  width: 100px;
-  float: left;
-  margin-right: 40px;
+  text-align: right;
+  width: $resultWidth;
 }

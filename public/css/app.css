@@ -69,13 +69,28 @@ html {
 }
 
 body {
-  color: #222;
+  color: #333;
   font-family: Arial;
   font-size: 20px;
 }
 
+h1 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 100;
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 1.25em;
+}
+
 h5 {
-  font-size: 10px;
+  font-size: 14px;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  margin-bottom: 15px;
+  font-weight: 100;
+  padding-top: 15px / 2;
+  padding-bottom: 15px;
+  border-bottom: 2px dotted #efefef;
 }
 
 .text {
@@ -85,11 +100,11 @@ h5 {
 
 .text, .result {
   line-height: 20px;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .result {
-  color: rgba(255, 0, 0, 0.3);
+  color: #0687df;
 }
 
 span > span:nth-of-type(even) {
@@ -102,12 +117,33 @@ span > span:nth-of-type(7n + 6) {
 }
 
 body {
-  padding: 40px;
+  padding: 80px 40px 40px;
+  background-color: #efefef;
+}
+
+main {
+  margin: 0 auto;
+  width: 1110px;
+}
+
+.example {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  padding: 20px;
+  background-color: #fff;
+  width: 175px;
+  float: left;
+  margin: 0 5px;
+  height: 500px;
+}
+
+.example > div {
+  position: relative;
 }
 
 .text {
   width: 75px;
-  margin-left: 20px;
+  left: 60px;
 }
 
 .text, .result {
@@ -115,13 +151,8 @@ body {
 }
 
 .result {
-  width: 25px;
-}
-
-.example {
-  width: 100px;
-  float: left;
-  margin-right: 40px;
+  text-align: right;
+  width: 50px;
 }
 
 /*# sourceMappingURL=app.css.map */
