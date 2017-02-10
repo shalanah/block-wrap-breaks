@@ -30,17 +30,8 @@ var isStartOfLine = function isStartOfLine(top, bottom, currentTop, currentBotto
     return false;
   }
 
-  /*
-    Compare overlapping heights - to tell if char is on the same line or not
-  */
-  var currentHeight = currentBottom - currentTop;
-  var height = bottom - top;
-
-  if (currentHeight >= height) {
-    // Current range has same or bigger font, must be a new line
-    return true;
-  } else if (currentTop > bottom) {
-    // Doesn't overlap height of last range at all, must be a new line
+  // Doesn't overlap height of last range at all, must be a new line
+  if (currentTop > bottom) {
     return true;
   }
 
@@ -83,7 +74,7 @@ var getWrapIndex = function getWrapIndex(selectionIndex, elemIndex, charCount, s
       return charCount + selectionIndex - 1;
     }
   } else {
-    // Chrome, Safari, IE: 
+    // Chrome, Safari, IE:
     // - Finds LAST char in line
     if (!(selectionIndex === 0 && elemIndex === 0) && strLength - 1 >= charCount + selectionIndex) {
       // Skip first char in block, make sure wrapIndex exists
@@ -120,16 +111,14 @@ var getWrapReturns = function getWrapReturns(block) {
     var text = elem.textContent;
 
     // First range start
-    if (elemIndex === 0) {
-      range.setStart(textNode, 0);
-    }
+    if (elemIndex === 0) range.setStart(textNode, 0);
 
     // Select one char at a time
     for (var i = 0, len = text.length; i <= len; i++) {
       // Set end of range
       range.setEnd(textNode, i);
 
-      // Range bounds
+      // Range bounds 
       // Range rects - FF doesn't have a range for some collapsed selections is undefined
       var rangeBounds = range.getClientRects();
       var currentTop = rangeBounds.length > 0 ? rangeBounds[rangeBounds.length - 1].top : undefined;
