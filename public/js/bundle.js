@@ -72,7 +72,7 @@ var getTextElems = function getTextElems(block) {
  * @returns {Number}
  */
 var getWrapIndex = function getWrapIndex(selectionIndex, elemIndex, charCount, strLength) {
-  if (isFireFox()) {
+  if (isFirefox()) {
     // Skip collapsed selections (not needed)
     if (selectionIndex === 0) return;
 
@@ -117,7 +117,7 @@ var getWrapReturns = function getWrapReturns(block) {
   textElems.map(function (elem, elemIndex) {
     // Helper vars
     var textNode = elem.firstChild; // get text node
-    var text = elem.innerHTML;
+    var text = elem.textContent;
 
     // First range start
     if (elemIndex === 0) {
@@ -130,7 +130,7 @@ var getWrapReturns = function getWrapReturns(block) {
       range.setEnd(textNode, i);
 
       // Range bounds
-      // Range rects - FF doesn't have a range for collapsed selection is undefined
+      // Range rects - FF doesn't have a range for some collapsed selections is undefined
       var rangeBounds = range.getClientRects();
       var currentTop = rangeBounds.length > 0 ? rangeBounds[rangeBounds.length - 1].top : undefined;
       var currentBottom = rangeBounds.length > 0 ? rangeBounds[rangeBounds.length - 1].bottom : undefined;
@@ -153,24 +153,30 @@ var getWrapReturns = function getWrapReturns(block) {
   });
   return wrapReturns;
 };
+var displayChar = function displayChar(entity) {
+  var elem = document.createElement('span');
+  elem.textContent = entity;
+  if (elem.innerHTML.length === 1 && elem.textContent === ' ') {
+    elem.innerHTML = '-<br/>';
+  } else {
+    elem.textContent = elem.innerHTML;
+  }
+  elem.innerHTML = elem.innerHTML + '<br/>';
+  return elem;
+};
+
 /**
  * Display result
  */
 var displayResult = function displayResult(paragraph, wrapReturns, resultElem) {
   var frag = document.createDocumentFragment();
   var text = paragraph.textContent;
-
-  // First line
-  var firstLine = document.createElement('span');
-  firstLine.innerHTML = text[0] !== ' ' ? text[0] + '<br/>' : '-' + '<br/>';
-  frag.appendChild(firstLine);
+  frag.appendChild(displayChar(text[0]));
 
   // Rest of the lines
   for (var j = 0, x = wrapReturns.length; j < x; j++) {
-    var show = document.createElement('span');
     var returnPos = wrapReturns[j];
-    show.innerHTML = text[returnPos] !== ' ' ? text[returnPos] + '<br/>' : '-' + '<br/>';
-    frag.appendChild(show);
+    frag.appendChild(displayChar(text[returnPos]));
   }
   resultElem.appendChild(frag);
 };
