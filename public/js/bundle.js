@@ -146,7 +146,7 @@ var displayChar = function displayChar(entity) {
   var elem = document.createElement('span');
   elem.textContent = entity;
   if (elem.innerHTML.length === 1 && elem.textContent === ' ') {
-    elem.innerHTML = '-<br/>';
+    elem.innerHTML = '-';
   } else {
     elem.textContent = elem.innerHTML;
   }
