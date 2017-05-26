@@ -11,6 +11,19 @@ var isFirefox = function isFirefox() {
 };
 
 /**
+ * Determines whether or not browser is Safari
+ * @returns {Bool}
+ */
+var isSafari = function isSafari() {
+  return navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') === -1;
+};
+
+var isSafari10OrGreater = function isSafari10OrGreater() {
+  var ua = navigator.userAgent;
+  return isSafari() && ua.substr(ua.lastIndexOf('Version/') + 8, 2) === '10';
+};
+
+/**
  * Determines whether or not a selection is on a new line
  * @returns {Bool}
  */
@@ -62,26 +75,42 @@ var getTextElems = function getTextElems(block) {
  * - Does not included first line
  * @returns {Number}
  */
-var getWrapIndex = function getWrapIndex(selectionIndex, elemIndex, charCount, strLength) {
-  if (isFirefox()) {
-    // Skip collapsed selections (not needed)
-    if (selectionIndex === 0) return;
+var getWrapIndex = function getWrapIndex(rangeIndex, elemIndex, charCount, strLength) {
+  var wrapPosition = void 0;
 
-    // Firefox:
-    // - Finds FIRST char in new line
-    if (!(selectionIndex === 1 && elemIndex === 0)) {
-      // Skip first char in block
-      return charCount + selectionIndex - 1;
+  // TODO: explain this further
+  if (isFirefox()) {
+    // FF:
+    if (rangeIndex === 0) return; // Skip collapsed selections
+    if (rangeIndex === 1 && elemIndex === 0) return; // Skip first char in block
+    wrapPosition = 'wrapChar';
+  } else if (isSafari10OrGreater()) {
+    // Safari > 10
+    if (rangeIndex === 0 && elemIndex === 0) return; // Skip first char in block
+    if (strLength - 1 < charCount + rangeIndex) return; // Make sure wrapIndex exists for beforeWrap
+    if (rangeIndex === 1) {
+      wrapPosition = 'wrapChar';
+    } else {
+      wrapPosition = 'beforeWrap';
     }
   } else {
-    // Chrome, Safari, IE:
-    // - Finds LAST char in line
-    if (!(selectionIndex === 0 && elemIndex === 0) && strLength - 1 >= charCount + selectionIndex) {
-      // Skip first char in block, make sure wrapIndex exists
-      return charCount + selectionIndex;
-    }
+    // Chrome, Safari < 10, IE:
+    if (rangeIndex === 0 && elemIndex === 0) return; // Skip first char in block
+    if (strLength - 1 < charCount + rangeIndex) return; // Make sure wrapIndex exists for beforeWrap
+    wrapPosition = 'beforeWrap';
   }
-  return;
+
+  // rangeIndex is ONE past our selected char
+  switch (wrapPosition) {
+    case 'beforeWrap':
+      // Keeping rangeIndex means we are now returning our wrapChar index
+      return charCount + rangeIndex;
+    case 'wrapChar':
+      // Subtracting one gives us our wrapChar index
+      return charCount + rangeIndex - 1;
+    default:
+      return;
+  }
 };
 
 /**
@@ -105,7 +134,7 @@ var getWrapReturns = function getWrapReturns(block) {
   var bottom = void 0; // used to tell when we are on a new line
 
   // Loop through textElems
-  textElems.map(function (elem, elemIndex) {
+  textElems.forEach(function (elem, elemIndex) {
     // Helper vars
     var textNode = elem.firstChild; // get text node
     var text = elem.textContent;
@@ -124,7 +153,7 @@ var getWrapReturns = function getWrapReturns(block) {
       var currentTop = rangeBounds.length > 0 ? rangeBounds[rangeBounds.length - 1].top : undefined;
       var currentBottom = rangeBounds.length > 0 ? rangeBounds[rangeBounds.length - 1].bottom : undefined;
 
-      // Detecting start of line
+      // Detecting start of line 
       if (isStartOfLine(top, bottom, currentTop, currentBottom)) {
         // Add wrap index (only skips adding first char in paragraph)
         var wrapIndex = getWrapIndex(i, elemIndex, charCount, strLength);
