@@ -88,7 +88,7 @@ var getWrapIndex = function getWrapIndex(rangeIndex, elemIndex, charCount, strLe
     // Safari > 10
     if (rangeIndex === 0 && elemIndex === 0) return; // Skip first char in block
     if (strLength - 1 < charCount + rangeIndex) return; // Make sure wrapIndex exists for beforeWrap
-    if (rangeIndex < 1) {
+    if (rangeIndex <= 1) {
       wrapPosition = 'beforeWrap';
     } else {
       wrapPosition = 'wrapChar';
