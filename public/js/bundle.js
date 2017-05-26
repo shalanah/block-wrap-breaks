@@ -100,13 +100,12 @@ var getWrapIndex = function getWrapIndex(rangeIndex, elemIndex, charCount, strLe
     wrapPosition = 'beforeWrap';
   }
 
-  // rangeIndex is ONE past our selected char
+  // RangeIndex is ONE past our selected char
+  // Return wrap index
   switch (wrapPosition) {
     case 'beforeWrap':
-      // Keeping rangeIndex means we are now returning our wrapChar index
       return charCount + rangeIndex;
     case 'wrapChar':
-      // Subtracting one gives us our wrapChar index
       return charCount + rangeIndex - 1;
     default:
       return;
