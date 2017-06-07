@@ -4,6 +4,16 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 // TODO: Turn into one big constructor
 
+var getChromeVersion = function getChromeVersion() {
+  var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
+  return raw ? parseInt(raw[2], 10) : undefined;
+};
+
+var isChrome59OrGreater = function isChrome59OrGreater() {
+  var v = getChromeVersion();
+  return v ? v >= 59 : undefined;
+};
+
 /**
  * Determines whether or not browser is Firefox
  * @returns {Bool}
@@ -90,17 +100,18 @@ var getTextElems = function getTextElems(block) {
  * - Does not included first line
  * @returns {Number}
  */
-var getWrapIndex = function getWrapIndex(rangeIndex, elemIndex, charCount, strLength, browserCase) {
+var getWrapIndex = function getWrapIndex(rangeIndex, elemIndex, charCount, strLength, wrapCase) {
   var wrapPosition = void 0;
 
   // TODO: Explain or document this further
-  if (browserCase === 'FF') {
+  if (wrapCase === 'FF') {
     // FF:
     if (rangeIndex === 0) return; // Skip collapsed selections
     if (rangeIndex === 1 && elemIndex === 0) return; // Skip first char in block
     wrapPosition = 'wrapChar';
-  } else if (browserCase === 'Safari10OrGreater') {
+  } else if (wrapCase === 'hybrid') {
     // Safari > 10
+    // Chrome > 59
     if (rangeIndex === 0 && elemIndex === 0) return; // Skip first char in block
     if (strLength - 1 < charCount + rangeIndex) return; // Make sure wrapIndex exists for beforeWrap
     if (rangeIndex <= 1) {
@@ -109,7 +120,8 @@ var getWrapIndex = function getWrapIndex(rangeIndex, elemIndex, charCount, strLe
       wrapPosition = 'wrapChar';
     }
   } else {
-    // Chrome, Safari < 10, IE:
+    // All the rest...
+    // Chrome < 59, Safari < 10, IE:
     if (rangeIndex === 0 && elemIndex === 0) return; // Skip first char in block
     if (strLength - 1 < charCount + rangeIndex) return; // Make sure wrapIndex exists for beforeWrap
     wrapPosition = 'beforeWrap';
@@ -133,9 +145,10 @@ var getWrapIndex = function getWrapIndex(rangeIndex, elemIndex, charCount, strLe
  */
 var getWrapReturns = function getWrapReturns(block) {
   // Browser case
-  var browserCase = void 0;
-  if (isFirefox()) browserCase = 'FF';
-  if (isSafari10OrGreater()) browserCase = 'Safari10OrGreater';
+  var wrapCase = void 0;
+  if (isFirefox()) wrapCase = 'FF';
+  if (isSafari10OrGreater()) wrapCase = 'hybrid';
+  if (isChrome59OrGreater()) wrapCase = 'hybrid';
 
   var textElems = getTextElems(block);
   var strLength = block.textContent.length;
@@ -175,7 +188,7 @@ var getWrapReturns = function getWrapReturns(block) {
       // Detecting start of line 
       if (isStartOfLine(top, bottom, currentTop, currentBottom)) {
         // Add wrap index (only skips adding first char in paragraph)
-        var wrapIndex = getWrapIndex(i, elemIndex, charCount, strLength, browserCase);
+        var wrapIndex = getWrapIndex(i, elemIndex, charCount, strLength, wrapCase);
         if (wrapIndex !== undefined) wrapReturns.push(wrapIndex);
 
         // Set next top/bottom
