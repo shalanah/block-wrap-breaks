@@ -4,14 +4,22 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 // TODO: Turn into one big constructor
 
+/**
+ * Gets chrome version
+ * @returns {Int}
+ */
 var getChromeVersion = function getChromeVersion() {
   var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
   return raw ? parseInt(raw[2], 10) : undefined;
 };
 
+/**
+ * Determines whether or not browser is Chrome v59 or greater
+ * @returns {Bool}
+ */
 var isChrome59OrGreater = function isChrome59OrGreater() {
   var v = getChromeVersion();
-  return v ? v >= 59 : undefined;
+  return v ? v >= 59 : false;
 };
 
 /**
@@ -109,7 +117,8 @@ var getWrapIndex = function getWrapIndex(rangeIndex, elemIndex, charCount, strLe
     if (rangeIndex === 0) return; // Skip collapsed selections
     if (rangeIndex === 1 && elemIndex === 0) return; // Skip first char in block
     wrapPosition = 'wrapChar';
-  } else if (wrapCase === 'hybrid') {
+  } else if (wrapCase === 'modern') {
+    // hybrid of wrapPositions based on location of selections
     // Safari > 10
     // Chrome > 59
     if (rangeIndex === 0 && elemIndex === 0) return; // Skip first char in block
@@ -140,16 +149,24 @@ var getWrapIndex = function getWrapIndex(rangeIndex, elemIndex, charCount, strLe
 };
 
 /**
+ * Analyzes browser to return wrap case
+ * @returns {String}
+ */
+var getWrapCase = function getWrapCase() {
+  if (isFirefox()) return 'FF';
+  if (isSafari10OrGreater() || isChrome59OrGreater()) return 'modern';
+  return;
+};
+
+/**
  * Selects each char to find start of each line wrap
  * @returns {Array}
  */
 var getWrapReturns = function getWrapReturns(block) {
   // Browser case
-  var wrapCase = void 0;
-  if (isFirefox()) wrapCase = 'FF';
-  if (isSafari10OrGreater()) wrapCase = 'hybrid';
-  if (isChrome59OrGreater()) wrapCase = 'hybrid';
+  var wrapCase = getWrapCase();
 
+  // Helper vars
   var textElems = getTextElems(block);
   var strLength = block.textContent.length;
   var wrapReturns = [];
