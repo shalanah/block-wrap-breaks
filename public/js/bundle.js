@@ -45,13 +45,12 @@ var isSafari = function isSafari() {
 var isSafari10OrGreater = function isSafari10OrGreater() {
   if (isSafari()) {
     var ua = navigator.userAgent;
-    var versionEx = /Version\/([\d|\.]+)/g;
+    var versionEx = /Version\/(\d+)/g;
 
     var _versionEx$exec = versionEx.exec(ua),
         _versionEx$exec2 = _slicedToArray(_versionEx$exec, 2),
         version = _versionEx$exec2[1];
 
-    console.log(Number(version) >= 10);
     return Number(version) >= 10;
   } else return false;
 };
