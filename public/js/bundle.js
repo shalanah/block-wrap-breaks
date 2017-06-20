@@ -51,7 +51,7 @@ var isSafari10OrGreater = function isSafari10OrGreater() {
         _versionEx$exec2 = _slicedToArray(_versionEx$exec, 2),
         version = _versionEx$exec2[1];
 
-    console.log(Number(version) >= 10);
+    version = version.split('.')[0];
     return Number(version) >= 10;
   } else return false;
 };
